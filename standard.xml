@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.9" type="plugin" group="radicalmart_shipping" method="upgrade">
+	<name>PLG_RADICALMART_SHIPPING_STANDARD</name>
+	<author>Delo Design</author>
+	<creationDate>October 2021</creationDate>
+	<copyright>Copyright © 2021 Delo Design. All rights reserved.</copyright>
+	<license>https://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<authorEmail>boss@delo-design.ru</authorEmail>
+	<authorUrl>https://delo-design.ru</authorUrl>
+	<version>1.0.0</version>
+	<description>COM_RADICALMART_DESCRIPTION</description>
+	<scriptfile>script.php</scriptfile>
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_radicalmart_shipping_standard.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_radicalmart_shipping_standard.sys.ini</language>
+		<language tag="ru-RU">ru-RU/ru-RU.plg_radicalmart_shipping_standard.ini</language>
+		<language tag="ru-RU">ru-RU/ru-RU.plg_radicalmart_shipping_standard.sys.ini</language>
+	</languages>
+	<files>
+		<folder>forms</folder>
+		<filename plugin="standard">standard.php</filename>
+	</files>
+	<layouts destination="plugins/radicalmart_checkout/standard" folder="layouts">
+		<filename>checkout.php</filename>
+	</layouts>
+	<updateservers>
+		<server type="extension" priority="1" name="RadicalMart Shipping: Standard">
+			https://radicalmart.ru/update?element=plg_radicalmart_shipping_standard
+		</server>
+	</updateservers>
+</extension>
