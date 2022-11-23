@@ -15,6 +15,7 @@ use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\CMSPlugin;
+use Joomla\Component\RadicalMart\Administrator\Helper\PriceHelper;
 
 class plgRadicalMart_ShippingStandard extends CMSPlugin
 {
@@ -51,11 +52,11 @@ class plgRadicalMart_ShippingStandard extends CMSPlugin
 	{
 		if ($context === 'com_radicalmart.shippingmethod')
 		{
-			JLoader::register('RadicalMartHelperPrice', JPATH_ADMINISTRATOR . '/components/com_radicalmart/helpers/price.php');
+			JLoader::register('PriceHelper', JPATH_ADMINISTRATOR . '/components/com_radicalmart/helpers/price.php');
 
 			foreach ($objData->prices as &$price)
 			{
-				$price['base'] = RadicalMartHelperPrice::rounding($price['base'], $price['currency']);
+				$price['base'] = PriceHelper::rounding($price['base'], $price['currency']);
 			}
 		}
 	}
@@ -91,7 +92,7 @@ class plgRadicalMart_ShippingStandard extends CMSPlugin
 		$method->order->code        = $method->code;
 		$method->order->description = $method->description;
 		$method->order->price       = $price;
-		if ($context === 'com_radicalmart.checkout') $method->layout = 'plugins.radicalmart_checkout.standard.checkout';
+		if ($context === 'com_radicalmart.checkout') $method->layout = 'plugins.radicalmart_shipping.standard.checkout';
 	}
 
 	/**
@@ -156,21 +157,21 @@ class plgRadicalMart_ShippingStandard extends CMSPlugin
 	protected function preparePrice($price = array(), $code = null)
 	{
 		// Set base price
-		$price['base']        = RadicalMartHelperPrice::clean($price['base'], $code);
+		$price['base']        = PriceHelper::clean($price['base'], $code);
 		$price['base_string'] = (empty($price['base'])) ?
 			Text::_('COM_RADICALMART_PRICE_FREE')
-			: RadicalMartHelperPrice::toString($price['base'], $code);
+			: PriceHelper::toString($price['base'], $code);
 		$price['base_seo']    = (empty($price['base'])) ? Text::_('COM_RADICALMART_PRICE_FREE')
-			: RadicalMartHelperPrice::toString($price['base'], $code, 'seo');
-		$price['base_number'] = RadicalMartHelperPrice::toString($price['base'], $code, false);
+			: PriceHelper::toString($price['base'], $code, 'seo');
+		$price['base_number'] = PriceHelper::toString($price['base'], $code, false);
 
 		// Set final price
 		$price['final']        = $price['base'];
 		$price['final_string'] = (empty($price['final'])) ? Text::_('COM_RADICALMART_PRICE_FREE')
-			: RadicalMartHelperPrice::toString($price['final'], $code);
+			: PriceHelper::toString($price['final'], $code);
 		$price['final_seo']    = (empty($price['final'])) ? Text::_('COM_RADICALMART_PRICE_FREE')
-			: RadicalMartHelperPrice::toString($price['final'], $code, 'seo');
-		$price['final_number'] = RadicalMartHelperPrice::toString($price['final'], $code, false);
+			: PriceHelper::toString($price['final'], $code, 'seo');
+		$price['final_number'] = PriceHelper::toString($price['final'], $code, false);
 
 		return $price;
 	}
