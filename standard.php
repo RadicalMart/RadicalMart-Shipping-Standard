@@ -52,11 +52,9 @@ class plgRadicalMart_ShippingStandard extends CMSPlugin
 	{
 		if ($context === 'com_radicalmart.shippingmethod')
 		{
-			JLoader::register('PriceHelper', JPATH_ADMINISTRATOR . '/components/com_radicalmart/helpers/price.php');
-
 			foreach ($objData->prices as &$price)
 			{
-				$price['base'] = PriceHelper::rounding($price['base'], $price['currency']);
+				$price['base'] = PriceHelper::clean($price['base'], $price['currency']);
 			}
 		}
 	}
