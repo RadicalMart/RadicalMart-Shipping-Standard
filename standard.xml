@@ -8,7 +8,7 @@
 	<authorEmail>boss@delo-design.ru</authorEmail>
 	<authorUrl>https://delo-design.ru</authorUrl>
 	<version>1.0.0</version>
-	<description>COM_RADICALMART_DESCRIPTION</description>
+	<description>PLG_RADICALMART_SHIPPING_STANDARD_DESCRIPTION</description>
 	<scriptfile>script.php</scriptfile>
 	<languages folder="language">
 		<language tag="en-GB">en-GB/en-GB.plg_radicalmart_shipping_standard.ini</language>
