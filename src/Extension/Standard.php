@@ -2,7 +2,7 @@
 /*
  * @package     RadicalMart Shipping Standard Plugin
  * @subpackage  plg_radicalmart_shipping_standard
- * @version     __DEPLOY_VERSION__
+ * @version     1.1.0
  * @author      Delo Design - delo-design.ru
  * @copyright   Copyright (c) 2022 Delo Design. All rights reserved.
  * @license     GNU/GPL license: https://www.gnu.org/copyleft/gpl.html
@@ -64,7 +64,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 *
 	 * @throws  \Exception
 	 *
-	 * @since  __DEPLOY_VERSION__
+	 * @since  1.1.0
 	 */
 	public function onContentNormaliseRequestData(Event $event)
 	{
@@ -90,7 +90,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 *
 	 * @throws  \Exception
 	 *
-	 * @since  __DEPLOY_VERSION__
+	 * @since  1.1.0
 	 */
 	public function onRadicalMartGetShippingMethods(string $context, object $method, array $formData,
 	                                                array  $products, array $currency)
@@ -138,7 +138,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 *
 	 * @throws \Exception
 	 *
-	 * @since __DEPLOY_VERSION__
+	 * @since 1.1.0
 	 */
 	public function onRadicalMartGetOrderTotal(string $context, array &$total, array $formData, object $shipping,
 	                                           object $payment, array $currency)
@@ -163,7 +163,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 * @param   object  $shipping  Shipping method data.
 	 * @param   object  $payment   Payment method data.
 	 *
-	 * @since __DEPLOY_VERSION__
+	 * @since 1.1.0
 	 */
 	public function onRadicalMartGetOrderForm(string $context, Form $form, array $formData, object $shipping,
 	                                          object $payment)
@@ -192,7 +192,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 *
 	 * @return array Formatting price array, False on failure.
 	 *
-	 * @since  __DEPLOY_VERSION__
+	 * @since  1.1.0
 	 */
 	protected function preparePrice(array $price = [], string $code = null): array
 	{
