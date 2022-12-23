@@ -7,8 +7,9 @@
 	<license>https://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>boss@delo-design.ru</authorEmail>
 	<authorUrl>https://delo-design.ru</authorUrl>
-	<version>1.0.0</version>
+	<version>1.0.1-dev</version>
 	<description>PLG_RADICALMART_SHIPPING_STANDARD_DESCRIPTION</description>
+	<namespace path="src">Joomla\Plugin\RadicalMartShipping\Standard</namespace>
 	<scriptfile>script.php</scriptfile>
 	<languages folder="language">
 		<language tag="en-GB">en-GB/en-GB.plg_radicalmart_shipping_standard.ini</language>
@@ -18,7 +19,8 @@
 	</languages>
 	<files>
 		<folder>forms</folder>
-		<filename plugin="standard">standard.php</filename>
+		<folder>services</folder>
+		<folder plugin="standard">src</folder>
 	</files>
 	<layouts destination="plugins/radicalmart_shipping/standard" folder="layouts">
 		<filename>checkout.php</filename>
