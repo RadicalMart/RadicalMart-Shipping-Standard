@@ -27,7 +27,7 @@
 	</layouts>
 	<updateservers>
 		<server type="extension" priority="1" name="RadicalMart Shipping: Standard">
-			https://radicalmart.ru/update?element=plg_radicalmart_shipping_standard
+			https://sovmart.ru/update?element=plg_radicalmart_shipping_standard
 		</server>
 	</updateservers>
 </extension>
