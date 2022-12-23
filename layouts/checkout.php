@@ -1,10 +1,10 @@
 <?php
 /*
- * @package     RadicalMart Package
+ * @package     RadicalMart Shipping Standard Plugin
  * @subpackage  plg_radicalmart_shipping_standard
- * @version     1.0.0
+ * @version     __DEPLOY_VERSION__
  * @author      Delo Design - delo-design.ru
- * @copyright   Copyright (c) 2021 Delo Design. All rights reserved.
+ * @copyright   Copyright (c) 2022 Delo Design. All rights reserved.
  * @license     GNU/GPL license: https://www.gnu.org/copyleft/gpl.html
  * @link        https://delo-design.ru/
  */
@@ -26,38 +26,42 @@ use Joomla\CMS\Form\Form;
  *
  */
 
-if (empty($shipping)) return false;
+if (empty($shipping))
+{
+	return false;
+}
+
 ?>
-<div class="uk-grid-small" uk-grid="">
+<div class="row">
 	<?php if ($shipping->params->get('field_country', 1)): ?>
-		<div class="uk-width-1-1"><?php echo $form->renderField('country', 'shipping'); ?></div>
+		<div class="col-md-12 mb-3"><?php echo $form->renderField('country', 'shipping'); ?></div>
 	<?php endif; ?>
 	<?php if ($shipping->params->get('field_city', 1)): ?>
-		<div class="uk-width-2-3@s"><?php echo $form->renderField('city', 'shipping'); ?></div>
+		<div class="col-md-8 mb-3"><?php echo $form->renderField('city', 'shipping'); ?></div>
 	<?php endif; ?>
 	<?php if ($shipping->params->get('field_zip', 1)): ?>
-		<div class="uk-width-1-3@s"><?php echo $form->renderField('zip', 'shipping'); ?></div>
+		<div class="col-md-4 mb-3"><?php echo $form->renderField('zip', 'shipping'); ?></div>
 	<?php endif; ?>
 	<?php if ($shipping->params->get('field_street', 1)): ?>
-		<div class="uk-width-2-3@s"><?php echo $form->renderField('street', 'shipping'); ?></div>
+		<div class="col-md-8 mb-3"><?php echo $form->renderField('street', 'shipping'); ?></div>
 	<?php endif; ?>
 	<?php if ($shipping->params->get('field_house', 1)): ?>
-		<div class="uk-width-1-3@s"><?php echo $form->renderField('house', 'shipping'); ?></div>
+		<div class="col-md-4 mb-3"><?php echo $form->renderField('house', 'shipping'); ?></div>
 	<?php endif; ?>
 	<?php if ($shipping->params->get('field_building', 1)): ?>
-		<div class="uk-width-1-4@s"><?php echo $form->renderField('building', 'shipping'); ?></div>
+		<div class="col-md-3 mb-3"><?php echo $form->renderField('building', 'shipping'); ?></div>
 	<?php endif; ?>
 	<?php if ($shipping->params->get('field_entrance', 1)): ?>
-		<div class="uk-width-1-4@s"><?php echo $form->renderField('entrance', 'shipping'); ?></div>
+		<div class="col-md-3 mb-3"><?php echo $form->renderField('entrance', 'shipping'); ?></div>
 	<?php endif; ?>
 	<?php if ($shipping->params->get('field_floor', 1)): ?>
-		<div class="uk-width-1-4@s"><?php echo $form->renderField('floor', 'shipping'); ?></div>
+		<div class="col-md-3 mb-3"><?php echo $form->renderField('floor', 'shipping'); ?></div>
 	<?php endif; ?>
 	<?php if ($shipping->params->get('field_apartment', 1)): ?>
-		<div class="uk-width-1-4@s"><?php echo $form->renderField('apartment', 'shipping'); ?></div>
+		<div class="col-md-3 mb-3"><?php echo $form->renderField('apartment', 'shipping'); ?></div>
 	<?php endif; ?>
 	<?php if ($shipping->params->get('field_comment', 1)): ?>
-		<div class="uk-width-1-1"><?php echo $form->renderField('comment', 'shipping'); ?></div>
+		<div class="col-md-12 mb-3"><?php echo $form->renderField('comment', 'shipping'); ?></div>
 	<?php endif; ?>
 </div>
 
