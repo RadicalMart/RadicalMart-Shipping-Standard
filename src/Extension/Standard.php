@@ -50,10 +50,11 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	public static function getSubscribedEvents(): array
 	{
 		return [
-			'onContentNormaliseRequestData'   => 'onContentNormaliseRequestData',
-			'onRadicalMartGetShippingMethods' => 'onRadicalMartGetShippingMethods',
-			'onRadicalMartGetOrderTotal'      => 'onRadicalMartGetOrderTotal',
-			'onRadicalMartGetOrderForm'       => 'onRadicalMartGetOrderForm',
+			'onContentNormaliseRequestData'       => 'onContentNormaliseRequestData',
+			'onRadicalMartGetShippingMethods'     => 'onRadicalMartGetShippingMethods',
+			'onRadicalMartGetOrderTotal'          => 'onRadicalMartGetOrderTotal',
+			'onRadicalMartGetOrderForm'           => 'onRadicalMartGetOrderForm',
+			'onRadicalMartExpressShippingMethods' => 'onRadicalMartExpressShippingMethods'
 		];
 	}
 
@@ -180,6 +181,21 @@ class Standard extends CMSPlugin implements SubscriberInterface
 		{
 			$form->setFieldAttribute('base', 'default', $shipping->order->price['base'], 'shipping.price');
 		}
+	}
+
+	/**
+	 * Method to send data for Express config.
+	 *
+	 * @return array Express list data.
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function onRadicalMartExpressShippingMethods()
+	{
+		return [
+			'text'  => Text::_('PLG_RADICALMART_SHIPPING_STANDARD_EXPRESS_TITLE'),
+			'value' => 'standard'
+		];
 	}
 
 	/**
