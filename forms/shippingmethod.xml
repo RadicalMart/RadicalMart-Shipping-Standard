@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<form>
+<form addfieldprefix="Joomla\Component\RadicalMart\Administrator\Field">
 	<fieldset name="fields" label="PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS">
 		<fields name="params">
 			<field name="field_country" type="radio"
