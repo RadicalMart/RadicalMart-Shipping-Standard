@@ -69,13 +69,15 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	public static function getSubscribedEvents(): array
 	{
 		return [
-			'onContentNormaliseRequestData'          => 'onContentNormaliseRequestData',
-			'onRadicalMartGetShippingMethods'        => 'onRadicalMartGetShippingMethods',
-			'onRadicalMartGetOrderTotal'             => 'onGetOrderTotal',
-			'onRadicalMartGetOrderForm'              => 'onGetOrderForm',
-			'onRadicalMartExpressGetShippingMethods' => 'onRadicalMartExpressGetShippingMethods',
-			'onRadicalMartExpressGetOrderTotal'      => 'onGetOrderTotal',
-			'onRadicalMartExpressGetOrderForm'       => 'onGetOrderForm',
+			'onContentNormaliseRequestData'                  => 'onContentNormaliseRequestData',
+			'onRadicalMartGetShippingMethods'                => 'onRadicalMartGetShippingMethods',
+			'onRadicalMartGetOrderTotal'                     => 'onGetOrderTotal',
+			'onRadicalMartGetOrderForm'                      => 'onGetOrderForm',
+			'onRadicalMartGetOrderCustomerUpdateData'        => 'onGetOrderCustomerUpdateData',
+			'onRadicalMartExpressGetShippingMethods'         => 'onRadicalMartExpressGetShippingMethods',
+			'onRadicalMartExpressGetOrderTotal'              => 'onGetOrderTotal',
+			'onRadicalMartExpressGetOrderForm'               => 'onGetOrderForm',
+			'onRadicalMartExpressGetOrderCustomerUpdateData' => 'onGetOrderCustomerUpdateData',
 		];
 	}
 
@@ -316,5 +318,35 @@ class Standard extends CMSPlugin implements SubscriberInterface
 		{
 			$form->setFieldAttribute('base', 'default', $shipping->order->price['base'], 'shipping.price');
 		}
+	}
+
+	/**
+	 * Get RadicalMart & RadicalMart Express order customer update data.
+	 *
+	 * @param   string  $context   Context selector string.
+	 * @param   object  $order     Order data.
+	 * @param   object  $customer  Customer data method data.
+	 *
+	 * @return array|false Update customer data if success, False if not.
+	 *
+	 * @since __DEPLOY_VERSION__
+	 */
+	public function onGetOrderCustomerUpdateData(string $context, object $order, object $customer)
+	{
+		$result = false;
+		if (!empty($order->formData['shipping']))
+		{
+			$result = [];
+			foreach ($order->formData['shipping'] as $key => $value)
+			{
+				if ($key === 'price')
+				{
+					continue;
+				}
+				$result[$key] = $value;
+			}
+		}
+
+		return $result;
 	}
 }
