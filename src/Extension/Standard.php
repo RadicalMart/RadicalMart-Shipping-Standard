@@ -74,6 +74,8 @@ class Standard extends CMSPlugin implements SubscriberInterface
 			'onRadicalMartGetOrderTotal'                     => 'onGetOrderTotal',
 			'onRadicalMartGetOrderForm'                      => 'onGetOrderForm',
 			'onRadicalMartGetOrderCustomerUpdateData'        => 'onGetOrderCustomerUpdateData',
+			'onRadicalMartGetCustomerMethodForm'             => 'onGetCustomerMethodForms',
+			'onRadicalMartGetPersonalMethodForm'             => 'onGetCustomerMethodForms',
 			'onRadicalMartExpressGetShippingMethods'         => 'onRadicalMartExpressGetShippingMethods',
 			'onRadicalMartExpressGetOrderTotal'              => 'onGetOrderTotal',
 			'onRadicalMartExpressGetOrderForm'               => 'onGetOrderForm',
@@ -310,7 +312,10 @@ class Standard extends CMSPlugin implements SubscriberInterface
 		$fields = ['country', 'city', 'zip', 'street', 'house', 'building', 'entrance', 'floor', 'apartment', 'comment'];
 		foreach ($fields as $field)
 		{
-			if (!$shipping->params->get('field_' . $field, 1)) $form->removeField($field, 'shipping');
+			if ((int) $shipping->params->get('field_' . $field, 1) === 0)
+			{
+				$form->removeField($field, 'shipping');
+			}
 		}
 
 		// Set default price
@@ -339,7 +344,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 			$result = [];
 			foreach ($order->formData['shipping'] as $key => $value)
 			{
-				if ($key === 'price')
+				if ($key === 'price' || $key === 'id')
 				{
 					continue;
 				}
@@ -348,5 +353,27 @@ class Standard extends CMSPlugin implements SubscriberInterface
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Prepare RadicalMart & RadicalMart Express customer and personal forms.
+	 *
+	 * @param   string  $context   Context selector string.
+	 * @param   Form    $form      Custer shipping method form object.
+	 * @param   mixed   $data      The data expected for the form.
+	 * @param   object  $shipping  Shipping method data.
+	 *
+	 * @since __DEPLOY_VERSION__
+	 */
+	public function onGetCustomerMethodForms(string $context, Form $form, $data, object $shipping)
+	{
+		$fields = ['country', 'city', 'zip', 'street', 'house', 'building', 'entrance', 'floor', 'apartment', 'comment'];
+		foreach ($fields as $field)
+		{
+			if ((int) $shipping->params->get('field_' . $field, 1) === 0)
+			{
+				$form->removeField($field);
+			}
+		}
 	}
 }
