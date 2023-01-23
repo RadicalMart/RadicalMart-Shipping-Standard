@@ -74,6 +74,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 			'onRadicalMartGetOrderTotal'                     => 'onGetOrderTotal',
 			'onRadicalMartGetOrderForm'                      => 'onGetOrderForm',
 			'onRadicalMartGetOrderCustomerUpdateData'        => 'onGetOrderCustomerUpdateData',
+			'onRadicalMartGetCheckoutCustomerData'           => 'onGetCheckoutCustomerData',
 			'onRadicalMartGetCustomerMethodForm'             => 'onGetCustomerMethodForms',
 			'onRadicalMartGetPersonalMethodForm'             => 'onGetCustomerMethodForms',
 			'onRadicalMartExpressGetShippingMethods'         => 'onRadicalMartExpressGetShippingMethods',
@@ -353,6 +354,22 @@ class Standard extends CMSPlugin implements SubscriberInterface
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Get RadicalMart & RadicalMart Express checkout customer data.
+	 *
+	 * @param   string  $context       Context selector string.
+	 * @param   object  $shipping      Shipping method object.
+	 * @param   array   $customerData  Customer data method data.
+	 *
+	 * @return array|false Customer shipping data for merge.
+	 *
+	 * @since __DEPLOY_VERSION__
+	 */
+	public function onGetCheckoutCustomerData(string $context, object $shipping, array $customerData)
+	{
+		return (!empty($customerData)) ? $customerData : false;
 	}
 
 	/**
