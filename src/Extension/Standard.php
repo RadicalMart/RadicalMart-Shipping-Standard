@@ -81,6 +81,9 @@ class Standard extends CMSPlugin implements SubscriberInterface
 			'onRadicalMartExpressGetOrderTotal'              => 'onGetOrderTotal',
 			'onRadicalMartExpressGetOrderForm'               => 'onGetOrderForm',
 			'onRadicalMartExpressGetOrderCustomerUpdateData' => 'onGetOrderCustomerUpdateData',
+			'onRadicalMartExpressGetCheckoutCustomerData'    => 'onGetCheckoutCustomerData',
+			'onRadicalMartExpressGetCustomerMethodForm'      => 'onGetCustomerMethodForms',
+			'onRadicalMartExpressGetPersonalMethodForm'      => 'onGetCustomerMethodForms',
 		];
 	}
 
