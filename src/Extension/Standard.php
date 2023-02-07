@@ -90,21 +90,24 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	/**
 	 * Prepare RadicalMart prices data.
 	 *
-	 * @param   Event  $event  The event.
+	 * @param   Event|mixed  $event  The event.
 	 *
 	 * @throws  \Exception
 	 *
 	 * @since  1.1.0
 	 */
-	public function onContentNormaliseRequestData(Event $event)
+	public function onContentNormaliseRequestData($event)
 	{
-		$context = $event->getArgument('0');
-		$objData = $event->getArgument('1');
-		if ($context === 'com_radicalmart.shippingmethod')
+		if ($event instanceof Event)
 		{
-			foreach ($objData->prices as &$price)
+			$context = $event->getArgument('0');
+			$objData = $event->getArgument('1');
+			if ($context === 'com_radicalmart.shippingmethod')
 			{
-				$price['base'] = RadicalMartPriceHelper::clean($price['base'], $price['currency']);
+				foreach ($objData->prices as &$price)
+				{
+					$price['base'] = RadicalMartPriceHelper::clean($price['base'], $price['currency']);
+				}
 			}
 		}
 	}
@@ -234,7 +237,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 		// Set layout
 		if ($context === 'com_radicalmart.checkout')
 		{
-			$method->layout = 'plugins.radicalmart_shipping.standard.express.checkout';
+			$method->layout = 'plugins.radicalmart_shipping.standard.express_checkout';
 		}
 	}
 
