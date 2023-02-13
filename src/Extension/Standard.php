@@ -70,7 +70,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	{
 		return [
 			'onRadicalMartNormaliseRequestData'              => 'onRadicalMartNormaliseRequestData',
-			'onRadicalMartGetShippingMethods'                => 'onRadicalMartGetShippingMethods',
+			'onRadicalMartGetOrderShippingMethods'           => 'onRadicalMartGetOrderShippingMethods',
 			'onRadicalMartGetOrderTotal'                     => 'onGetOrderTotal',
 			'onRadicalMartGetOrderForm'                      => 'onGetOrderForm',
 			'onRadicalMartGetOrderCustomerUpdateData'        => 'onGetOrderCustomerUpdateData',
@@ -122,8 +122,8 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 *
 	 * @since  1.1.0
 	 */
-	public function onRadicalMartGetShippingMethods(string $context, object $method, array $formData,
-	                                                array  $products, array $currency)
+	public function onRadicalMartGetOrderShippingMethods(string $context, object $method, array $formData,
+	                                                     array  $products, array $currency)
 	{
 		// Set disabled
 		$method->disabled = false;
