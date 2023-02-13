@@ -69,7 +69,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	public static function getSubscribedEvents(): array
 	{
 		return [
-			'onContentNormaliseRequestData'                  => 'onContentNormaliseRequestData',
+			'onRadicalMartNormaliseRequestData'              => 'onRadicalMartNormaliseRequestData',
 			'onRadicalMartGetShippingMethods'                => 'onRadicalMartGetShippingMethods',
 			'onRadicalMartGetOrderTotal'                     => 'onGetOrderTotal',
 			'onRadicalMartGetOrderForm'                      => 'onGetOrderForm',
@@ -90,24 +90,21 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	/**
 	 * Prepare RadicalMart prices data.
 	 *
-	 * @param   Event|mixed  $event  The event.
+	 * @param   string|null  $context  Context selector string.
+	 * @param   object|null  $objData  Form data object.
+	 * @param   Form|null    $form     The form object.
 	 *
-	 * @throws  \Exception
+	 * @throws \Exception
 	 *
-	 * @since  1.1.0
+	 * @since __DEPLOY_VERSION__
 	 */
-	public function onContentNormaliseRequestData($event)
+	public function onRadicalMartNormaliseRequestData(?string $context = null, ?object $objData = null, ?Form $form = null)
 	{
-		if ($event instanceof Event)
+		if ($context === 'com_radicalmart.shippingmethod')
 		{
-			$context = $event->getArgument('0');
-			$objData = $event->getArgument('1');
-			if ($context === 'com_radicalmart.shippingmethod')
+			foreach ($objData->prices as &$price)
 			{
-				foreach ($objData->prices as &$price)
-				{
-					$price['base'] = RadicalMartPriceHelper::clean($price['base'], $price['currency']);
-				}
+				$price['base'] = RadicalMartPriceHelper::clean($price['base'], $price['currency']);
 			}
 		}
 	}
