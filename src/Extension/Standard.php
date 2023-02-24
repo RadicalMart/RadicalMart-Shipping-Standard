@@ -273,19 +273,20 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	/**
 	 * Prepare RadicalMart & RadicalMart Express order totals.
 	 *
-	 * @param   string  $context   Context selector string.
-	 * @param   array   $total     Order total data.
-	 * @param   array   $formData  Form data array.
-	 * @param   object  $shipping  Shipping method data.
-	 * @param   object  $payment   Payment method data.
-	 * @param   array   $currency  Order currency data.
+	 * @param   string             $context   Context selector string.
+	 * @param   array              $total     Order total data.
+	 * @param   array              $formData  Form data array.
+	 * @param   array|null|false   $products  Shipping method data.
+	 * @param   object|null|false  $shipping  Shipping method data.
+	 * @param   object|null|false  $payment   Payment method data.
+	 * @param   array              $currency  Order currency data.
 	 *
 	 * @throws \Exception
 	 *
 	 * @since __DEPLOY_VERSION__
 	 */
-	public function onGetOrderTotal(string $context, array &$total, array $formData, object $shipping,
-	                                object $payment, array $currency)
+	public function onGetOrderTotal(string $context, array &$total, array $formData, $products, $shipping, $payment,
+	                                array  $currency)
 	{
 		if (!empty($shipping->order->price['base']))
 		{
@@ -301,16 +302,17 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	/**
 	 * Prepare RadicalMart & RadicalMart Express order form.
 	 *
-	 * @param   string  $context   Context selector string.
-	 * @param   Form    $form      Order form object.
-	 * @param   array   $formData  Form data array.
-	 * @param   object  $shipping  Shipping method data.
-	 * @param   object  $payment   Payment method data.
+	 * @param   string             $context   Context selector string.
+	 * @param   Form               $form      Order form object.
+	 * @param   array              $formData  Form data array.
+	 * @param   array|null|false   $products  Shipping method data.
+	 * @param   object|null|false  $shipping  Shipping method data.
+	 * @param   object|null|false  $payment   Payment method data.
+	 * @param   array              $currency  Order currency data.
 	 *
 	 * @since __DEPLOY_VERSION__
 	 */
-	public function onGetOrderForm(string $context, Form $form, array $formData, object $shipping,
-	                               object $payment)
+	public function onGetOrderForm(string $context, Form $form, array $formData, $products, $shipping, $payment, array $currency)
 	{
 		// Remove fields
 		$fields = ['country', 'city', 'zip', 'street', 'house', 'building', 'entrance', 'floor', 'apartment', 'comment'];
