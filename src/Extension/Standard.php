@@ -18,7 +18,6 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\Component\RadicalMart\Administrator\Helper\PriceHelper as RadicalMartPriceHelper;
 use Joomla\Component\RadicalMartExpress\Administrator\Helper\PriceHelper as RadicalMartExpressPriceHelper;
-use Joomla\Event\Event;
 use Joomla\Event\SubscriberInterface;
 
 class Standard extends CMSPlugin implements SubscriberInterface
@@ -253,17 +252,17 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	{
 		// Set base price
 		$price['base']        = RadicalMartExpressPriceHelper::clean($price['base']);
-		$price['base_string'] = (empty($price['base'])) ? Text::_('COM_RADICALMART_PRICE_FREE')
+		$price['base_string'] = (empty($price['base'])) ? Text::_('COM_RADICALMART_EXPRESS_PRICE_FREE')
 			: RadicalMartExpressPriceHelper::toString($price['base']);
-		$price['base_seo']    = (empty($price['base'])) ? Text::_('COM_RADICALMART_PRICE_FREE')
+		$price['base_seo']    = (empty($price['base'])) ? Text::_('COM_RADICALMART_EXPRESS_PRICE_FREE')
 			: RadicalMartExpressPriceHelper::toString($price['base'], 'seo');
 		$price['base_number'] = RadicalMartExpressPriceHelper::toString($price['base'], false);
 
 		// Set final price
 		$price['final']        = $price['base'];
-		$price['final_string'] = (empty($price['final'])) ? Text::_('COM_RADICALMART_PRICE_FREE')
+		$price['final_string'] = (empty($price['final'])) ? Text::_('COM_RADICALMART_EXPRESS_PRICE_FREE')
 			: RadicalMartExpressPriceHelper::toString($price['final']);
-		$price['final_seo']    = (empty($price['final'])) ? Text::_('COM_RADICALMART_PRICE_FREE')
+		$price['final_seo']    = (empty($price['final'])) ? Text::_('COM_RADICALMART_EXPRESS_PRICE_FREE')
 			: RadicalMartExpressPriceHelper::toString($price['final'], 'seo');
 		$price['final_number'] = RadicalMartExpressPriceHelper::toString($price['final'], false);
 
