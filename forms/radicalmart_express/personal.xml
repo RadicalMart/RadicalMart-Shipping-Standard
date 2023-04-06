@@ -19,7 +19,5 @@
 			   label="COM_RADICALMART_EXPRESS_FLOOR"/>
 		<field name="apartment" type="text"
 			   label="COM_RADICALMART_EXPRESS_APARTMENT"/>
-		<field name="comment" type="textarea"
-			   label="COM_RADICALMART_EXPRESS_COMMENT"/>
 	</fieldset>
 </form>

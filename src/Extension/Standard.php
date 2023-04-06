@@ -13,6 +13,7 @@ namespace Joomla\Plugin\RadicalMartShipping\Standard\Extension;
 
 \defined('_JEXEC') or die;
 
+use Joomla\CMS\Date\Date;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\CMSPlugin;
@@ -68,36 +69,39 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	public static function getSubscribedEvents(): array
 	{
 		return [
-			'onRadicalMartNormaliseRequestData'              => 'onRadicalMartNormaliseRequestData',
-			'onRadicalMartGetOrderShippingMethods'           => 'onRadicalMartGetOrderShippingMethods',
-			'onRadicalMartGetOrderTotal'                     => 'onGetOrderTotal',
-			'onRadicalMartGetOrderForm'                      => 'onGetOrderForm',
-			'onRadicalMartGetOrderCustomerUpdateData'        => 'onGetOrderCustomerUpdateData',
-			'onRadicalMartGetCheckoutCustomerData'           => 'onGetCheckoutCustomerData',
-			'onRadicalMartGetCustomerMethodForm'             => 'onGetCustomerMethodForms',
-			'onRadicalMartGetPersonalMethodForm'             => 'onGetCustomerMethodForms',
-			'onRadicalMartExpressGetShippingMethods'         => 'onRadicalMartExpressGetShippingMethods',
-			'onRadicalMartExpressGetOrderTotal'              => 'onGetOrderTotal',
+			'onRadicalMartNormaliseRequestData'       => 'onRadicalMartNormaliseRequestData',
+			'onRadicalMartGetOrderShippingMethods'    => 'onRadicalMartGetOrderShippingMethods',
+			'onRadicalMartGetOrderForm'               => 'onGetOrderForm',
+			'onRadicalMartGetOrderTotal'              => 'onGetOrderTotal',
+			'onRadicalMartGetOrderCustomerUpdateData' => 'onGetOrderCustomerUpdateData',
+			'onRadicalMartGetCheckoutCustomerData'    => 'onGetCheckoutCustomerData',
+			'onRadicalMartGetCustomerMethodForm'      => 'onGetCustomerMethodForm',
+			'onRadicalMartGetPersonalShippingMethods' => 'onGetPersonalShippingMethods',
+			'onRadicalMartGetPersonalMethodForm'      => 'onGetCustomerMethodForm',
+
+			'onRadicalMartExpressGetOrderShippingMethods'    => 'onRadicalMartExpressGetOrderShippingMethods',
 			'onRadicalMartExpressGetOrderForm'               => 'onGetOrderForm',
+			'onRadicalMartExpressGetOrderTotal'              => 'onGetOrderTotal',
 			'onRadicalMartExpressGetOrderCustomerUpdateData' => 'onGetOrderCustomerUpdateData',
 			'onRadicalMartExpressGetCheckoutCustomerData'    => 'onGetCheckoutCustomerData',
-			'onRadicalMartExpressGetCustomerMethodForm'      => 'onGetCustomerMethodForms',
-			'onRadicalMartExpressGetPersonalMethodForm'      => 'onGetCustomerMethodForms',
+			'onRadicalMartExpressGetCustomerMethodForm'      => 'onGetCustomerMethodForm',
+			'onRadicalMartExpressGetPersonalShippingMethods' => 'onGetPersonalShippingMethods',
+			'onRadicalMartExpressGetPersonalMethodForm'      => 'onGetCustomerMethodForm',
 		];
 	}
 
 	/**
-	 * Prepare RadicalMart prices data.
+	 * Prepare RadicalMart method prices data.
 	 *
-	 * @param   string|null  $context  Context selector string.
-	 * @param   object|null  $objData  Form data object.
-	 * @param   Form|null    $form     The form object.
+	 * @param   string  $context  Context selector string.
+	 * @param   object  $objData  Form data object.
+	 * @param   Form    $form     The form object.
 	 *
 	 * @throws \Exception
 	 *
 	 * @since __DEPLOY_VERSION__
 	 */
-	public function onRadicalMartNormaliseRequestData(?string $context = null, ?object $objData = null, ?Form $form = null)
+	public function onRadicalMartNormaliseRequestData(string $context, object $objData, Form $form)
 	{
 		if ($context === 'com_radicalmart.shippingmethod')
 		{
@@ -138,38 +142,8 @@ class Standard extends CMSPlugin implements SubscriberInterface
 				: ['base' => 0];
 		}
 
-		$price = $this->prepareRadicalMartPrice($price, $currency['code']);
-
-		// Set order
-		$method->order              = new \stdClass();
-		$method->order->id          = $method->id;
-		$method->order->title       = $method->title;
-		$method->order->code        = $method->code;
-		$method->order->description = $method->description;
-		$method->order->price       = $price;
-
-		// Set layout
-		if ($context === 'com_radicalmart.checkout')
-		{
-			$method->layout = 'plugins.radicalmart_shipping.standard.checkout';
-		}
-	}
-
-	/**
-	 * Prepare Radicalmart price values.
-	 *
-	 * @param   array        $price  Item price array.
-	 * @param   string|null  $code   Currency code.
-	 *
-	 * @throws \Exception
-	 *
-	 * @return array Formatting price array, False on failure.
-	 *
-	 * @since  1.1.0
-	 */
-	protected function prepareRadicalMartPrice(array $price = [], string $code = null): array
-	{
 		// Set base price
+		$code                 = $currency['code'];
 		$price['base']        = RadicalMartPriceHelper::clean($price['base'], $code);
 		$price['base_string'] = (empty($price['base'])) ? Text::_('COM_RADICALMART_PRICE_FREE')
 			: RadicalMartPriceHelper::toString($price['base'], $code);
@@ -185,7 +159,26 @@ class Standard extends CMSPlugin implements SubscriberInterface
 			: RadicalMartPriceHelper::toString($price['final'], $code, 'seo');
 		$price['final_number'] = RadicalMartPriceHelper::toString($price['final'], $code, false);
 
-		return $price;
+		// Set order
+		$method->order              = new \stdClass();
+		$method->order->id          = $method->id;
+		$method->order->title       = $method->title;
+		$method->order->code        = $method->code;
+		$method->order->description = $method->description;
+		$method->order->price       = $price;
+
+		// Set layout
+		if ($context === 'com_radicalmart.checkout')
+		{
+			$method->layout = 'plugins.radicalmart_shipping.standard.radicalmart.checkout';
+		}
+
+		// Set notification data
+		if (!empty($formData['shipping']) && !empty($formData['shipping']['id'])
+			&& (int) $formData['shipping']['id'] === $method->id)
+		{
+			$method->notification = $this->prepareMethodNotification($formData['shipping'], 'COM_RADICALMART');
+		}
 	}
 
 	/**
@@ -201,8 +194,8 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 *
 	 * @since  __DEPLOY_VERSION__
 	 */
-	public function onRadicalMartExpressGetShippingMethods(string $context, object $method, array $formData,
-	                                                       array  $products, array $currency)
+	public function onRadicalMartExpressGetOrderShippingMethods(string $context, object $method, array $formData,
+	                                                            array  $products, array $currency)
 	{
 		// Set disabled
 		$method->disabled = false;
@@ -217,39 +210,6 @@ class Standard extends CMSPlugin implements SubscriberInterface
 			$price = (isset($method->price['base'])) ? $method->price : ['base' => 0];
 		}
 
-		$price = $this->prepareRadicalMartExpressPrice($price);
-
-		$title = (!empty($method->title) && $method->title !== Text::_('COM_RADICALMART_EXPRESS_SHIPPING'))
-			? $method->title : Text::_('PLG_RADICALMART_SHIPPING_STANDARD_EXPRESS_TITLE');
-
-		// Set order
-		$method->order              = new \stdClass();
-		$method->order->id          = $method->id;
-		$method->order->title       = $title;
-		$method->order->code        = $method->code;
-		$method->order->description = $method->description;
-		$method->order->price       = $price;
-
-		// Set layout
-		if ($context === 'com_radicalmart.checkout')
-		{
-			$method->layout = 'plugins.radicalmart_shipping.standard.express_checkout';
-		}
-	}
-
-	/**
-	 * Prepare Radicalmart price values.
-	 *
-	 * @param   array  $price  Item price array.
-	 *
-	 * @throws \Exception
-	 *
-	 * @return array Formatting price array, False on failure.
-	 *
-	 * @since  __DEPLOY_VERSION__
-	 */
-	protected function prepareRadicalMartExpressPrice(array $price = []): array
-	{
 		// Set base price
 		$price['base']        = RadicalMartExpressPriceHelper::clean($price['base']);
 		$price['base_string'] = (empty($price['base'])) ? Text::_('COM_RADICALMART_EXPRESS_PRICE_FREE')
@@ -266,35 +226,27 @@ class Standard extends CMSPlugin implements SubscriberInterface
 			: RadicalMartExpressPriceHelper::toString($price['final'], 'seo');
 		$price['final_number'] = RadicalMartExpressPriceHelper::toString($price['final'], false);
 
-		return $price;
-	}
+		$title = (!empty($method->title) && $method->title !== Text::_('COM_RADICALMART_EXPRESS_SHIPPING'))
+			? $method->title : Text::_('PLG_RADICALMART_SHIPPING_STANDARD_EXPRESS_TITLE');
 
-	/**
-	 * Prepare RadicalMart & RadicalMart Express order totals.
-	 *
-	 * @param   string             $context   Context selector string.
-	 * @param   array              $total     Order total data.
-	 * @param   array              $formData  Form data array.
-	 * @param   array|null|false   $products  Shipping method data.
-	 * @param   object|null|false  $shipping  Shipping method data.
-	 * @param   object|null|false  $payment   Payment method data.
-	 * @param   array              $currency  Order currency data.
-	 *
-	 * @throws \Exception
-	 *
-	 * @since __DEPLOY_VERSION__
-	 */
-	public function onGetOrderTotal(string $context, array &$total, array $formData, $products, $shipping, $payment,
-	                                array  $currency)
-	{
-		if (!empty($shipping->order->price['base']))
+		// Set order
+		$method->order              = new \stdClass();
+		$method->order->id          = $method->id;
+		$method->order->title       = $title;
+		$method->order->code        = $method->code;
+		$method->order->description = $method->description;
+		$method->order->price       = $price;
+
+		// Set layout
+		if ($context === 'com_radicalmart_express.checkout')
 		{
-			$total['base'] += $shipping->order->price['base'];
+			$method->layout = 'plugins.radicalmart_shipping.standard.radicalmart_express.checkout';
 		}
 
-		if (!empty($shipping->order->price['final']))
+		// Set notification data
+		if (!empty($formData['shipping']))
 		{
-			$total['final'] += $shipping->order->price['final'];
+			$method->notification = $this->prepareMethodNotification($formData['shipping'], 'COM_RADICALMART_EXPRESS');
 		}
 	}
 
@@ -323,10 +275,51 @@ class Standard extends CMSPlugin implements SubscriberInterface
 			}
 		}
 
+		// Remove empty fields in site_order form
+		if (strpos($form->getName(), 'order_site') !== false)
+		{
+			foreach ($form->getFieldset('shipping') as $field)
+			{
+				if (empty($formData['shipping'][$field->fieldname]))
+				{
+					$form->removeField($field->fieldname, 'shipping');
+				}
+			}
+		}
+
 		// Set default price
 		if (!empty($shipping->order->price['base']))
 		{
 			$form->setFieldAttribute('base', 'default', $shipping->order->price['base'], 'shipping.price');
+		}
+	}
+
+	/**
+	 * Prepare RadicalMart & RadicalMart Express order totals.
+	 *
+	 * @param   string             $context   Context selector string.
+	 * @param   array              $total     Order total data.
+	 * @param   array              $formData  Form data array.
+	 * @param   array|null|false   $products  Shipping method data.
+	 * @param   object|null|false  $shipping  Shipping method data.
+	 * @param   object|null|false  $payment   Payment method data.
+	 * @param   array              $currency  Order currency data.
+	 *
+	 * @throws \Exception
+	 *
+	 * @since __DEPLOY_VERSION__
+	 */
+	public function onGetOrderTotal(string $context, array &$total, array $formData, $products, $shipping, $payment,
+	                                array  $currency)
+	{
+		if (!empty($shipping->order->price['base']))
+		{
+			$total['base'] += $shipping->order->price['base'];
+		}
+
+		if (!empty($shipping->order->price['final']))
+		{
+			$total['final'] += $shipping->order->price['final'];
 		}
 	}
 
@@ -386,7 +379,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 *
 	 * @since __DEPLOY_VERSION__
 	 */
-	public function onGetCustomerMethodForms(string $context, Form $form, $data, object $shipping)
+	public function onGetCustomerMethodForm(string $context, Form $form, $data, object $shipping)
 	{
 		$fields = ['country', 'city', 'zip', 'street', 'house', 'building', 'entrance', 'floor', 'apartment', 'comment'];
 		foreach ($fields as $field)
@@ -396,5 +389,79 @@ class Standard extends CMSPlugin implements SubscriberInterface
 				$form->removeField($field);
 			}
 		}
+	}
+
+	/**
+	 * Prepare RadicalMart personal shipping method data.
+	 *
+	 * @param   string  $context  Context selector string.
+	 * @param   object  $method   Method data.
+	 *
+	 * @throws  \Exception
+	 *
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public function onGetPersonalShippingMethods(string $context, object $method)
+	{
+		$method->layout = (strpos($context, 'com_radicalmart_express.') !== false)
+			? 'plugins.radicalmart_shipping.standard.radicalmart_express.personal'
+			: 'plugins.radicalmart_shipping.standard.radicalmart.personal';
+	}
+
+	/**
+	 * Method to prepare shipping notification information.
+	 *
+	 * @param   array   $data      Shipping form data.
+	 * @param   string  $constant  Component contestant.
+	 *
+	 * @return array
+	 *
+	 * @since __DEPLOY_VERSION__
+	 */
+	protected function prepareMethodNotification(array $data, string $constant): array
+	{
+
+		$address = [];
+		if (!empty($data['zip']))
+		{
+			$address[] = $data['zip'];
+		}
+		if (!empty($data['country']))
+		{
+			$address[] = $data['country'];
+		}
+
+		if (!empty($data['city']))
+		{
+			$address[] = $data['city'];
+		}
+
+		$mb = function_exists('mb_strtolower');
+		foreach (['street', 'house', 'building', 'entrance', 'floor', 'apartment'] as $key)
+		{
+			if (!empty($data[$key]))
+			{
+				$title     = Text::_($constant . '_' . $key);
+				$title     = ($mb) ? mb_strtolower($title) : strtolower($title);
+				$address[] = $title . ' ' . $data[$key];
+			}
+		}
+
+		$result = [];
+		if (!empty($address))
+		{
+			$result[$constant . '_SHIPPING_ADDRESS'] = implode(' ', $address);
+		}
+
+		if (!empty($data['date']))
+		{
+			$result['PLG_RADICALMART_SHIPPING_STANDARD_SHIPPING_DATE'] = (new Date($data['date']))->format(Text::_('DATE_FORMAT_LC4'));
+		}
+		if (!empty($data['note']))
+		{
+			$result['PLG_RADICALMART_SHIPPING_STANDARD_SHIPPING_NOTE'] = $data['note'];
+		}
+
+		return $result;
 	}
 }
