@@ -2,7 +2,7 @@
 /*
  * @package     RadicalMart Shipping Standard Plugin
  * @subpackage  plg_radicalmart_shipping_standard
- * @version     __DEPLOY_VERSION__
+ * @version     2.0.0
  * @author      Delo Design - delo-design.ru
  * @copyright   Copyright (c) 2022 Delo Design. All rights reserved.
  * @license     GNU/GPL license: https://www.gnu.org/copyleft/gpl.html
@@ -11,18 +11,26 @@
 
 defined('_JEXEC') or die;
 
-extract($displayData);
-
 use Joomla\CMS\Form\Form;
+use Joomla\Component\RadicalMart\Administrator\Helper\LayoutsHelper;
+
+/* @deprecated  RadicalMart Shipping - Standard v? */
+if (LayoutsHelper::isSiteLayoutOverride('plugins.radicalmart_shipping.standard.checkout'))
+{
+	echo LayoutsHelper::renderSiteLayout('plugins.radicalmart_shipping.standard.checkout', $displayData);
+
+	return;
+}
+
+extract($displayData);
 
 /**
  * Layout variables
  * -----------------
  *
- * @var  Form    $form   Form object.
- * @var  object  $item   Checkout object.
- * @var  object  $shipping Checkout shipping method object.
- * @var  boolean $new    Button target.
+ * @var  Form   $form     Form object.
+ * @var  object $item     Checkout object.
+ * @var  object $shipping Checkout shipping method object.
  *
  */
 
@@ -30,6 +38,7 @@ if (empty($shipping))
 {
 	return false;
 }
+
 
 ?>
 <div class="row">
