@@ -2,7 +2,7 @@
 /*
  * @package     RadicalMart Shipping Standard Plugin
  * @subpackage  plg_radicalmart_shipping_standard
- * @version     __DEPLOY_VERSION__
+ * @version     2.0.0
  * @author      Delo Design - delo-design.ru
  * @copyright   Copyright (c) 2022 Delo Design. All rights reserved.
  * @license     GNU/GPL license: https://www.gnu.org/copyleft/gpl.html
@@ -46,7 +46,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 *
 	 * @var  bool
 	 *
-	 * @since  __DEPLOY_VERSION__
+	 * @since  2.0.0
 	 */
 	public bool $radicalmart = true;
 
@@ -55,7 +55,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 *
 	 * @var  bool
 	 *
-	 * @since  __DEPLOY_VERSION__
+	 * @since  2.0.0
 	 */
 	public bool $radicalmart_express = true;
 
@@ -99,7 +99,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 *
 	 * @throws \Exception
 	 *
-	 * @since __DEPLOY_VERSION__
+	 * @since 2.0.0
 	 */
 	public function onRadicalMartNormaliseRequestData(string $context, object $objData, Form $form)
 	{
@@ -192,7 +192,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 *
 	 * @throws  \Exception
 	 *
-	 * @since  __DEPLOY_VERSION__
+	 * @since  2.0.0
 	 */
 	public function onRadicalMartExpressGetOrderShippingMethods(string $context, object $method, array $formData,
 	                                                            array  $products, array $currency)
@@ -261,7 +261,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 * @param   object|null|false  $payment   Payment method data.
 	 * @param   array              $currency  Order currency data.
 	 *
-	 * @since __DEPLOY_VERSION__
+	 * @since 2.0.0
 	 */
 	public function onGetOrderForm(string $context, Form $form, array $formData, $products, $shipping, $payment, array $currency)
 	{
@@ -307,7 +307,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 *
 	 * @throws \Exception
 	 *
-	 * @since __DEPLOY_VERSION__
+	 * @since 2.0.0
 	 */
 	public function onGetOrderTotal(string $context, array &$total, array $formData, $products, $shipping, $payment,
 	                                array  $currency)
@@ -332,7 +332,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 *
 	 * @return array|false Update customer data if success, False if not.
 	 *
-	 * @since __DEPLOY_VERSION__
+	 * @since 2.0.0
 	 */
 	public function onGetOrderCustomerUpdateData(string $context, object $order, object $customer)
 	{
@@ -362,7 +362,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 *
 	 * @return array|false Customer shipping data for merge.
 	 *
-	 * @since __DEPLOY_VERSION__
+	 * @since 2.0.0
 	 */
 	public function onGetCheckoutCustomerData(string $context, object $shipping, array $customerData)
 	{
@@ -377,7 +377,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 * @param   mixed   $data      The data expected for the form.
 	 * @param   object  $shipping  Shipping method data.
 	 *
-	 * @since __DEPLOY_VERSION__
+	 * @since 2.0.0
 	 */
 	public function onGetCustomerMethodForm(string $context, Form $form, $data, object $shipping)
 	{
@@ -399,7 +399,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 *
 	 * @throws  \Exception
 	 *
-	 * @since  __DEPLOY_VERSION__
+	 * @since  2.0.0
 	 */
 	public function onGetPersonalShippingMethods(string $context, object $method)
 	{
@@ -416,7 +416,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 *
 	 * @return array
 	 *
-	 * @since __DEPLOY_VERSION__
+	 * @since 2.0.0
 	 */
 	protected function prepareMethodNotification(array $data, string $constant): array
 	{
