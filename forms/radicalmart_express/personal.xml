@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<form addfieldprefix="Joomla\Component\RadicalMartExpress\Administrator\Field">
+<form addfieldprefix="Joomla\Component\RadicalMartExpress\Site\Field">
 	<fieldset>
 		<field name="country" type="text"
 			   label="COM_RADICALMART_EXPRESS_COUNTRY"/>

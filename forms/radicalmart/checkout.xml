@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<form addfieldprefix="Joomla\Component\RadicalMart\Administrator\Field">
+<form addfieldprefix="Joomla\Component\RadicalMart\Site\Field">
 	<fieldset name="shipping">
 		<fields name="shipping">
 			<field name="country" type="text"
