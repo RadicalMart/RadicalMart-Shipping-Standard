@@ -1,76 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form addfieldprefix="Joomla\Component\RadicalMart\Administrator\Field">
-	<fieldset name="fields" label="PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS">
+	<fieldset name="settings_fields" label="PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS">
 		<fields name="params">
 			<field name="field_country" type="radio"
-				   label="COM_RADICALMART_COUNTRY"
+				   label="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_COUNTRY"
 				   class="btn-group btn-group-yesno"
-				   default="1">
-				<option value="0">JHIDE</option>
-				<option value="1">JSHOW</option>
+				   default="required">
+				<option value="required">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_REQUIRED</option>
+				<option value="not_required">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_NOT_REQUIRED</option>
+				<option value="hidden">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_HIDDEN</option>
+			</field>
+			<field name="field_region" type="radio"
+				   label="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_REGION"
+				   class="btn-group btn-group-yesno"
+				   default="not_required">
+				<option value="required">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_REQUIRED</option>
+				<option value="not_required">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_NOT_REQUIRED</option>
+				<option value="hidden">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_HIDDEN</option>
 			</field>
 			<field name="field_city" type="radio"
-				   label="COM_RADICALMART_CITY"
+				   label="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_CITY"
 				   class="btn-group btn-group-yesno"
-				   default="1">
-				<option value="0">JHIDE</option>
-				<option value="1">JSHOW</option>
+				   default="required">
+				<option value="required">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_REQUIRED</option>
+				<option value="not_required">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_NOT_REQUIRED</option>
+				<option value="hidden">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_HIDDEN</option>
 			</field>
 			<field name="field_zip" type="radio"
-				   label="COM_RADICALMART_ZIP"
+				   label="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_ZIP"
 				   class="btn-group btn-group-yesno"
-				   default="1">
-				<option value="0">JHIDE</option>
-				<option value="1">JSHOW</option>
+				   default="required">
+				<option value="required">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_REQUIRED</option>
+				<option value="not_required">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_NOT_REQUIRED</option>
+				<option value="hidden">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_HIDDEN</option>
 			</field>
 			<field name="field_street" type="radio"
-				   label="COM_RADICALMART_STREET"
+				   label="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_STREET"
 				   class="btn-group btn-group-yesno"
-				   default="1">
-				<option value="0">JHIDE</option>
-				<option value="1">JSHOW</option>
+				   default="required">
+				<option value="required">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_REQUIRED</option>
+				<option value="not_required">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_NOT_REQUIRED</option>
+				<option value="hidden">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_HIDDEN</option>
 			</field>
 			<field name="field_house" type="radio"
-				   label="COM_RADICALMART_HOUSE"
+				   label="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_HOUSE"
 				   class="btn-group btn-group-yesno"
-				   default="1">
-				<option value="0">JHIDE</option>
-				<option value="1">JSHOW</option>
+				   default="required">
+				<option value="required">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_REQUIRED</option>
+				<option value="not_required">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_NOT_REQUIRED</option>
+				<option value="hidden">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_HIDDEN</option>
 			</field>
 			<field name="field_building" type="radio"
-				   label="COM_RADICALMART_BUILDING"
+				   label="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_BUILDING"
 				   class="btn-group btn-group-yesno"
-				   default="1">
-				<option value="0">JHIDE</option>
-				<option value="1">JSHOW</option>
+				   default="not_required">
+				<option value="required">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_REQUIRED</option>
+				<option value="not_required">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_NOT_REQUIRED</option>
+				<option value="hidden">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_HIDDEN</option>
 			</field>
 			<field name="field_entrance" type="radio"
-				   label="COM_RADICALMART_ENTRANCE"
+				   label="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_ENTRANCE"
 				   class="btn-group btn-group-yesno"
-				   default="1">
-				<option value="0">JHIDE</option>
-				<option value="1">JSHOW</option>
+				   default="not_required">
+				<option value="required">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_REQUIRED</option>
+				<option value="not_required">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_NOT_REQUIRED</option>
+				<option value="hidden">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_HIDDEN</option>
 			</field>
 			<field name="field_floor" type="radio"
-				   label="COM_RADICALMART_FLOOR"
+				   label="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_FLOOR"
 				   class="btn-group btn-group-yesno"
-				   default="1">
-				<option value="0">JHIDE</option>
-				<option value="1">JSHOW</option>
+				   default="not_required">
+				<option value="required">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_REQUIRED</option>
+				<option value="not_required">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_NOT_REQUIRED</option>
+				<option value="hidden">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_HIDDEN</option>
 			</field>
 			<field name="field_apartment" type="radio"
-				   label="COM_RADICALMART_APARTMENT"
+				   label="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_APARTMENT"
 				   class="btn-group btn-group-yesno"
-				   default="1">
-				<option value="0">JHIDE</option>
-				<option value="1">JSHOW</option>
+				   default="not_required">
+				<option value="required">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_REQUIRED</option>
+				<option value="not_required">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_NOT_REQUIRED</option>
+				<option value="hidden">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_HIDDEN</option>
 			</field>
 			<field name="field_comment" type="radio"
-				   label="COM_RADICALMART_COMMENT"
+				   label="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_COMMENT"
 				   class="btn-group btn-group-yesno"
-				   default="1">
-				<option value="0">JHIDE</option>
-				<option value="1">JSHOW</option>
+				   default="not_required">
+				<option value="required">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_REQUIRED</option>
+				<option value="not_required">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_NOT_REQUIRED</option>
+				<option value="hidden">PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_HIDDEN</option>
+			</field>
+			<field name="fields_default" type="subform"
+				   label="PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_FIELDS_DEFAULT"
+				   parentclass="stack"
+				   multiple="true">
+				<form>
+					<field name="field" type="list"
+						   label="PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_FIELDS_DEFAULT_FIELD">
+						<option value="country">PLG_RADICALMART_SHIPPING_STANDARD_FIELD_COUNTRY</option>
+						<option value="region">PLG_RADICALMART_SHIPPING_STANDARD_FIELD_REGION</option>
+						<option value="city">PLG_RADICALMART_SHIPPING_STANDARD_FIELD_CITY</option>
+						<option value="zip">PLG_RADICALMART_SHIPPING_STANDARD_FIELD_ZIP</option>
+						<option value="street">PLG_RADICALMART_SHIPPING_STANDARD_FIELD_STREET</option>
+						<option value="house">PLG_RADICALMART_SHIPPING_STANDARD_FIELD_HOUSE</option>
+						<option value="building">PLG_RADICALMART_SHIPPING_STANDARD_FIELD_BUILDING</option>
+						<option value="entrance">PLG_RADICALMART_SHIPPING_STANDARD_FIELD_ENTRANCE</option>
+						<option value="floor">PLG_RADICALMART_SHIPPING_STANDARD_FIELD_FLOOR</option>
+						<option value="apartment">PLG_RADICALMART_SHIPPING_STANDARD_FIELD_APARTMENT</option>
+						<option value="comment">PLG_RADICALMART_SHIPPING_STANDARD_FIELD_COMMENT</option>
+					</field>
+					<field name="value" type="text"
+						   label="PLG_RADICALMART_SHIPPING_STANDARD_PARAMS_FIELDS_FIELDS_DEFAULT_VALUE"/>
+				</form>
 			</field>
 		</fields>
 	</fieldset>

@@ -3,40 +3,38 @@
 	<fieldset name="shipping">
 		<fields name="shipping">
 			<field name="country" type="text"
-				   label="COM_RADICALMART_EXPRESS_COUNTRY"
-				   hint="COM_RADICALMART_EXPRESS_COUNTRY"
-				   required="true"/>
+				   label="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_COUNTRY"
+				   hint="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_COUNTRY_HINT"/>
+			<field name="region" type="text"
+				   label="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_REGION"
+				   hint="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_REGION_HINT"/>
 			<field name="city" type="text"
-				   label="COM_RADICALMART_EXPRESS_CITY"
-				   hint="COM_RADICALMART_EXPRESS_CITY"
-				   required="true"/>
+				   label="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_CITY"
+				   hint="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_CITY_HINT"/>
 			<field name="zip" type="text"
-				   label="COM_RADICALMART_EXPRESS_ZIP"
-				   hint="COM_RADICALMART_EXPRESS_ZIP"
-				   required="true"/>
+				   label="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_ZIP"
+				   hint="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_ZIP_HINT"/>
 			<field name="street" type="text"
-				   label="COM_RADICALMART_EXPRESS_STREET"
-				   hint="COM_RADICALMART_EXPRESS_STREET"
-				   required="true"/>
+				   label="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_STREET"
+				   hint="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_STREET_HINT"/>
 			<field name="house" type="text"
-				   label="COM_RADICALMART_EXPRESS_HOUSE"
-				   hint="COM_RADICALMART_EXPRESS_HOUSE"
-				   required="true"/>
+				   label="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_HOUSE"
+				   hint="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_HOUSE_HINT"/>
 			<field name="building" type="text"
-				   label="COM_RADICALMART_EXPRESS_BUILDING"
-				   hint="COM_RADICALMART_EXPRESS_BUILDING"/>
+				   label="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_BUILDING"
+				   hint="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_BUILDING_HINT"/>
 			<field name="entrance" type="text"
-				   label="COM_RADICALMART_EXPRESS_ENTRANCE"
-				   hint="COM_RADICALMART_EXPRESS_ENTRANCE"/>
+				   label="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_ENTRANCE"
+				   hint="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_ENTRANCE_HINT"/>
 			<field name="floor" type="text"
-				   label="COM_RADICALMART_EXPRESS_FLOOR"
-				   hint="COM_RADICALMART_EXPRESS_FLOOR"/>
+				   label="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_FLOOR"
+				   hint="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_FLOOR_HINT"/>
 			<field name="apartment" type="text"
-				   label="COM_RADICALMART_EXPRESS_APARTMENT"
-				   hint="COM_RADICALMART_EXPRESS_APARTMENT"/>
+				   label="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_APARTMENT"
+				   hint="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_APARTMENT_HINT"/>
 			<field name="comment" type="textarea"
-				   label="COM_RADICALMART_EXPRESS_COMMENT"
-				   hint="COM_RADICALMART_EXPRESS_COMMENT"/>
+				   label="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_COMMENT"
+				   hint="PLG_RADICALMART_SHIPPING_STANDARD_FIELD_COMMENT_HINT"/>
 		</fields>
 	</fieldset>
 </form>

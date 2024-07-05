@@ -2,37 +2,21 @@
 <form addfieldprefix="Joomla\Component\RadicalMart\Site\Field">
 	<fieldset name="shipping">
 		<fields name="shipping">
-			<field name="country" type="text"
-				   label="COM_RADICALMART_COUNTRY"
-				   required="true"/>
-			<field name="city" type="text"
-				   label="COM_RADICALMART_CITY"
-				   required="true"/>
-			<field name="zip" type="text"
-				   label="COM_RADICALMART_ZIP"
-				   required="true"/>
-			<field name="street" type="text"
-				   label="COM_RADICALMART_STREET"
-				   required="true"/>
-			<field name="house" type="text"
-				   label="COM_RADICALMART_HOUSE"
-				   required="true"/>
-			<field name="building" type="text"
-				   label="COM_RADICALMART_BUILDING"/>
-			<field name="entrance" type="text"
-				   label="COM_RADICALMART_ENTRANCE"/>
-			<field name="floor" type="text"
-				   label="COM_RADICALMART_FLOOR"/>
-			<field name="apartment" type="text"
-				   label="COM_RADICALMART_APARTMENT"/>
-			<field name="comment" type="textarea"
+			<field name="address_string" type="value_textarea"
+				   label="PLG_RADICALMART_SHIPPING_STANDARD_SHIPPING_ADDRESS"/>
+			<field name="comment" type="value_textarea"
 				   label="COM_RADICALMART_COMMENT"/>
-			<field name="date" type="calendar"
+			<field name="date" type="value_calendar"
 				   label="PLG_RADICALMART_SHIPPING_STANDARD_SHIPPING_DATE"
 				   translateformat="true"
 				   showtime="false"/>
-			<field name="note" type="textarea"
+			<field name="note" type="value_textarea"
 				   label="COM_RADICALMART_NOTE"/>
+			<fields name="price">
+				<field name="base" type="value_price"
+					   label="PLG_RADICALMART_SHIPPING_STANDARD_PRICE"
+					   currency="{currency_code}"/>
+			</fields>
 		</fields>
 	</fieldset>
 </form>

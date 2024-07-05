@@ -12,6 +12,7 @@
 \defined('_JEXEC') or die;
 
 use Joomla\CMS\Application\AdministratorApplication;
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\Filesystem\Folder;
@@ -25,11 +26,12 @@ use Joomla\CMS\Version;
 use Joomla\Database\DatabaseDriver;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
+use Joomla\Registry\Registry;
 
 return new class () implements ServiceProviderInterface {
 	public function register(Container $container)
 	{
-		$container->set(InstallerScriptInterface::class, new class ($container->get(AdministratorApplication::class)) implements InstallerScriptInterface {
+		$container->set(InstallerScriptInterface::class, value: new class ($container->get(AdministratorApplication::class)) implements InstallerScriptInterface {
 			/**
 			 * The application object
 			 *
@@ -65,6 +67,17 @@ return new class () implements ServiceProviderInterface {
 			 * @since  1.1.0
 			 */
 			protected string $minimumPhp = '7.4';
+
+			/**
+			 * Update methods.
+			 *
+			 * @var  array
+			 *
+			 * @since  __DEPLOY_VERSION__
+			 */
+			protected array $updateMethods = [
+				'update3_0_0',
+			];
 
 			/**
 			 * Constructor.
@@ -161,6 +174,18 @@ return new class () implements ServiceProviderInterface {
 				{
 					// Parse layouts
 					$this->parseLayouts($installer->getManifest()->layouts, $installer);
+
+					// Run updates script
+					if ($type === 'update')
+					{
+						foreach ($this->updateMethods as $method)
+						{
+							if (method_exists($this, $method))
+							{
+								$this->$method($adapter);
+							}
+						}
+					}
 				}
 				else
 				{
@@ -329,6 +354,102 @@ return new class () implements ServiceProviderInterface {
 				}
 
 				return true;
+			}
+
+			/**
+			 * Method to update to 3.0.0 version.
+			 *
+			 * @since  __DEPLOY_VERSION__
+			 */
+			protected function update3_0_0()
+			{
+				$db     = $this->db;
+				$fields = [
+					'field_country'   => true,
+					'field_city'      => true,
+					'field_zip'       => true,
+					'field_street'    => true,
+					'field_house'     => true,
+					'field_building'  => false,
+					'field_entrance'  => false,
+					'field_floor'     => false,
+					'field_apartment' => false,
+					'field_comment'   => false,
+				];
+				if (!empty(ComponentHelper::getComponent('com_radicalmart')->id))
+				{
+					$query   = $db->getQuery(true)
+						->select(['id', 'params'])
+						->from($db->quoteName('#__radicalmart_shipping_methods'))
+						->where($db->quoteName('plugin') . ' = ' . $db->quote('standard'));
+					$methods = $db->setQuery($query)->loadObjectList();
+					foreach ($methods as $method)
+					{
+						$method->params = new Registry($method->params);
+						foreach ($fields as $path => $required)
+						{
+							$value = $method->params->get($path);
+							if (!is_numeric($value))
+							{
+								continue;
+							}
+
+							if ((int) $value === 0)
+							{
+								$value = 'hidden';
+							}
+							else
+							{
+								$value = ($required) ? 'required' : 'not_required';
+							}
+
+							$method->params->set($path, $value);
+						}
+						$method->params = $method->params->toString();
+						$db->updateObject('#__radicalmart_shipping_methods', $method, 'id');
+					}
+				}
+
+				if (!empty(ComponentHelper::getComponent('com_radicalmart_express')->id))
+				{
+					$query          = $db->getQuery(true)
+						->select(['extension_id', 'params'])
+						->from($db->quoteName('#__extensions'))
+						->where($db->quoteName('element') . ' = ' . $db->quote('com_radicalmart_express'));
+					$update         = $db->setQuery($query, 0, 1)->loadObject();
+					$update->params = (new Registry($update->params))->toArray();
+					if (!empty($update->params['shipping_method_plugin']) && $update->params['shipping_method_plugin'] === 'standard')
+					{
+						if (!isset($update->params['shipping_method_params']))
+						{
+							$update->params['shipping_method_params'] = [];
+						}
+						foreach ($fields as $path => $required)
+						{
+							if (isset($update->params['shipping_method_params'][$path]))
+							{
+								$value = $update->params['shipping_method_params'][$path];
+								if (!is_numeric($value))
+								{
+									continue;
+								}
+
+								if ((int) $value === 0)
+								{
+									$value = 'hidden';
+								}
+								else
+								{
+									$value = ($required) ? 'required' : 'not_required';
+								}
+
+								$update->params['shipping_method_params'][$path] = $value;
+							}
+						}
+					}
+					$update->params = (new Registry($update->params))->toString();
+					$db->updateObject('#__extensions', $update, 'extension_id');
+				}
 			}
 		});
 	}
