@@ -2,7 +2,7 @@
 /*
  * @package     RadicalMart Shipping Standard Plugin
  * @subpackage  plg_radicalmart_shipping_standard
- * @version     __DEPLOY_VERSION__
+ * @version     3.0.0
  * @author      RadicalMart Team - radicalmart.ru
  * @copyright   Copyright (c) 2024 RadicalMart. All rights reserved.
  * @license     GNU/GPL license: https://www.gnu.org/copyleft/gpl.html
@@ -65,7 +65,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 *
 	 * @var array|string[]
 	 *
-	 * @since __DEPLOY_VERSION__
+	 * @since 3.0.0
 	 */
 	public static array $defaultFieldsParams = [
 		'country'   => 'required',
@@ -152,7 +152,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 *
 	 * @throws  \Exception
 	 *
-	 * @since  __DEPLOY_VERSION__
+	 * @since  3.0.0
 	 */
 	public function onRadicalMartGetOrderShipping(string $context, object $method, array $formData,
 	                                              array  $products, array $currency)
@@ -328,7 +328,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 * @param   array    $currency  Order currency data.
 	 * @param   bool     $isNew     Is new order.
 	 *
-	 * @since __DEPLOY_VERSION__
+	 * @since 3.0.0
 	 */
 	public function onLoadOrderMethodFormData(string $context, array &$data, object $method, array $formData,
 	                                          array  $products, array $currency, bool $isNew)
@@ -354,7 +354,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 * @param   array    $currency  Order currency data.
 	 * @param   bool     $isNew     Is new order.
 	 *
-	 * @since __DEPLOY_VERSION__
+	 * @since 3.0.0
 	 */
 	public function onPrepareOrderMethodSaveData(string $context, array &$data, object $method, array $formData,
 	                                             array  $products, array $currency, bool $isNew)
@@ -624,7 +624,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 *
 	 * @return string
 	 *
-	 * @since __DEPLOY_VERSION__
+	 * @since 3.0.0
 	 */
 	protected function addressToString(array $data = []): string
 	{
@@ -667,7 +667,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 *
 	 * @return array
 	 *
-	 * @since __DEPLOY_VERSION__
+	 * @since 3.0.0
 	 */
 	protected function prepareMethodNotification(array $data): array
 	{

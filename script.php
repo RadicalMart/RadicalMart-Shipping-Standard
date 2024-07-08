@@ -2,7 +2,7 @@
 /*
  * @package     RadicalMart Shipping Standard Plugin
  * @subpackage  plg_radicalmart_shipping_standard
- * @version     __DEPLOY_VERSION__
+ * @version     3.0.0
  * @author      RadicalMart Team - radicalmart.ru
  * @copyright   Copyright (c) 2024 RadicalMart. All rights reserved.
  * @license     GNU/GPL license: https://www.gnu.org/copyleft/gpl.html
@@ -73,7 +73,7 @@ return new class () implements ServiceProviderInterface {
 			 *
 			 * @var  array
 			 *
-			 * @since  __DEPLOY_VERSION__
+			 * @since  3.0.0
 			 */
 			protected array $updateMethods = [
 				'update3_0_0',
@@ -359,7 +359,7 @@ return new class () implements ServiceProviderInterface {
 			/**
 			 * Method to update to 3.0.0 version.
 			 *
-			 * @since  __DEPLOY_VERSION__
+			 * @since  3.0.0
 			 */
 			protected function update3_0_0()
 			{

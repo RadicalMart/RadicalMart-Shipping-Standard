@@ -7,7 +7,7 @@
 	<license>https://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
 	<authorEmail>info@radicalmart.ru</authorEmail>
 	<authorUrl>https://radicalmart.ru/</authorUrl>
-	<version>2.0.1-dev</version>
+	<version>3.0.0</version>
 	<description>PLG_RADICALMART_SHIPPING_STANDARD_DESCRIPTION</description>
 	<namespace path="src">Joomla\Plugin\RadicalMartShipping\Standard</namespace>
 	<scriptfile>script.php</scriptfile>
