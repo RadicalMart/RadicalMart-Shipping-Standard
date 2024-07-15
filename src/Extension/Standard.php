@@ -34,15 +34,6 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	protected $autoloadLanguage = true;
 
 	/**
-	 * Loads the application object.
-	 *
-	 * @var  \Joomla\CMS\Application\CMSApplication
-	 *
-	 * @since  1.2.0
-	 */
-	protected $app = null;
-
-	/**
 	 * Enable on RadicalMart
 	 *
 	 * @var  bool
