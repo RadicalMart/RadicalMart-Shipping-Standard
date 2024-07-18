@@ -32,11 +32,14 @@ return new class implements ServiceProviderInterface {
 	{
 		$container->set(PluginInterface::class,
 			function (Container $container) {
-				$plugin  = PluginHelper::getPlugin('radicalmart_shipping', 'standard');
+				// Create plugin class
 				$subject = $container->get(DispatcherInterface::class);
+				$config  = (array) PluginHelper::getPlugin('radicalmart_shipping', 'standard');
+				$plugin  = new Standard($subject, $config);
 
-				$plugin = new Standard($subject, (array) $plugin);
-				$plugin->setApplication(Factory::getApplication());
+				// Set application
+				$app = Factory::getApplication();
+				$plugin->setApplication($app);
 
 				return $plugin;
 			}
