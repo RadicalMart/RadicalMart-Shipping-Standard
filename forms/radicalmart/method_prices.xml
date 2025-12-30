@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form addfieldprefix="Joomla\Component\RadicalMart\Administrator\Field">
-	<fieldset name="prices_{currency_group}" label="{currency_title}">
+	<fieldset name="prices_{currency_group}" tab="prices"
+			  label="{currency_title}">
 		<fields name="prices">
 			<fields name="{currency_group}">
 				<field name="currency" type="hidden"

@@ -120,7 +120,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 *
 	 * @since 2.0.0
 	 */
-	public function onRadicalMartNormaliseRequestData(string $context, object $objData, Form $form)
+	public function onRadicalMartNormaliseRequestData(string $context, object $objData, Form $form): void
 	{
 		if ($context === 'com_radicalmart.shippingmethod')
 		{
@@ -146,7 +146,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 * @since  3.0.0
 	 */
 	public function onRadicalMartGetOrderShipping(string $context, object $method, array $formData,
-	                                              array  $products, array $currency)
+	                                              array  $products, array $currency): void
 	{
 		// Prepare data
 		$data = (!empty($formData['shipping'])) ? $formData['shipping'] : [];
@@ -234,7 +234,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 * @since  2.0.0
 	 */
 	public function onRadicalMartExpressGetOrderShipping(string $context, object $method, array $formData,
-	                                                     array  $products, array $currency)
+	                                                     array  $products, array $currency): void
 	{
 		// Prepare data
 		$data = (!empty($formData['shipping'])) ? $formData['shipping'] : [];
@@ -322,7 +322,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 * @since 3.0.0
 	 */
 	public function onLoadOrderMethodFormData(string $context, array &$data, object $method, array $formData,
-	                                          array  $products, array $currency, bool $isNew)
+	                                          array  $products, array $currency, bool $isNew): void
 	{
 		// Set all order data to form data
 		foreach ((new Registry($method->order))->toArray() as $key => $value)
@@ -348,7 +348,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 * @since 3.0.0
 	 */
 	public function onPrepareOrderMethodSaveData(string $context, array &$data, object $method, array $formData,
-	                                             array  $products, array $currency, bool $isNew)
+	                                             array  $products, array $currency, bool $isNew): void
 	{
 		// Cleanup data
 		unset($data['address_string']);
@@ -372,7 +372,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 * @since  1.1.0
 	 */
 	public function onGetOrderShippingMethods(string $context, object $method, array $formData,
-	                                          array  $products, array $currency)
+	                                          array  $products, array $currency): void
 	{
 		// Set disabled
 		$method->disabled = false;
@@ -381,17 +381,18 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	/**
 	 * Prepare RadicalMart & RadicalMart Express order form.
 	 *
-	 * @param   string             $context   Context selector string.
-	 * @param   Form               $form      Order form object.
-	 * @param   array              $formData  Form data array.
-	 * @param   array|null|false   $products  Shipping method data.
-	 * @param   object|null|false  $shipping  Shipping method data.
-	 * @param   object|null|false  $payment   Payment method data.
-	 * @param   array              $currency  Order currency data.
+	 * @param   string            $context   Context selector string.
+	 * @param   Form              $form      Order form object.
+	 * @param   array             $formData  Form data array.
+	 * @param   bool|array|null   $products  Shipping method data.
+	 * @param   object|bool|null  $shipping  Shipping method data.
+	 * @param   object|bool|null  $payment   Payment method data.
+	 * @param   array             $currency  Order currency data.
 	 *
 	 * @since 2.0.0
 	 */
-	public function onGetOrderForm(string $context, Form $form, array $formData, $products, $shipping, $payment, array $currency)
+	public function onGetOrderForm(string           $context, Form $form, array $formData, bool|array|null $products,
+	                               object|bool|null $shipping, object|bool|null $payment, array $currency): void
 	{
 
 		$formName = $form->getName();
@@ -481,20 +482,21 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	/**
 	 * Prepare RadicalMart & RadicalMart Express order totals.
 	 *
-	 * @param   string             $context   Context selector string.
-	 * @param   array              $total     Order total data.
-	 * @param   array              $formData  Form data array.
-	 * @param   array|null|false   $products  Shipping method data.
-	 * @param   object|null|false  $shipping  Shipping method data.
-	 * @param   object|null|false  $payment   Payment method data.
-	 * @param   array              $currency  Order currency data.
+	 * @param   string            $context   Context selector string.
+	 * @param   array             $total     Order total data.
+	 * @param   array             $formData  Form data array.
+	 * @param   bool|array|null   $products  Shipping method data.
+	 * @param   object|bool|null  $shipping  Shipping method data.
+	 * @param   object|bool|null  $payment   Payment method data.
+	 * @param   array             $currency  Order currency data.
 	 *
 	 * @throws \Exception
 	 *
 	 * @since 2.0.0
 	 */
-	public function onGetOrderTotal(string $context, array &$total, array $formData, $products, $shipping, $payment,
-	                                array  $currency)
+	public function onGetOrderTotal(string          $context, array &$total, array $formData,
+	                                bool|array|null $products, object|bool|null $shipping, object|bool|null $payment,
+	                                array           $currency): void
 	{
 		if (!empty($shipping->order->price['base']))
 		{
@@ -518,7 +520,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 *
 	 * @since 2.0.0
 	 */
-	public function onGetOrderCustomerUpdateData(string $context, object $order, object $customer)
+	public function onGetOrderCustomerUpdateData(string $context, object $order, object $customer): bool|array
 	{
 		$result = false;
 		if (!empty($order->formData['shipping']))
@@ -549,7 +551,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 *
 	 * @since 2.0.0
 	 */
-	public function onGetCheckoutCustomerData(string $context, object $shipping, array $customerData)
+	public function onGetCheckoutCustomerData(string $context, object $shipping, array $customerData): bool|array
 	{
 		if (empty($customerData))
 		{
@@ -580,7 +582,7 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 *
 	 * @since 2.0.0
 	 */
-	public function onGetCustomerMethodForm(string $context, Form $form, $data, object $shipping)
+	public function onGetCustomerMethodForm(string $context, Form $form, mixed $data, object $shipping): void
 	{
 		foreach (self::$defaultFieldsParams as $key => $default)
 		{
@@ -601,9 +603,9 @@ class Standard extends CMSPlugin implements SubscriberInterface
 	 *
 	 * @since  2.0.0
 	 */
-	public function onGetPersonalShippingMethods(string $context, object $method)
+	public function onGetPersonalShippingMethods(string $context, object $method): void
 	{
-		$method->layout = (strpos($context, 'com_radicalmart_express.') !== false)
+		$method->layout = (str_contains($context, 'com_radicalmart_express.'))
 			? 'plugins.radicalmart_shipping.standard.radicalmart_express.personal'
 			: 'plugins.radicalmart_shipping.standard.radicalmart.personal';
 	}
